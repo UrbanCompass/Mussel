@@ -1,10 +1,4 @@
-//
-//  MusselServerTests.swift
-//  MusselServerTests
-//
-//  Created by Renato Gamboa on 8/17/20.
 //  Copyright © 2020 Compass. All rights reserved.
-//
 
 import XCTest
 @testable import MusselServer
