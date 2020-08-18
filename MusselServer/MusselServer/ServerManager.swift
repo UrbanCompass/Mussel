@@ -4,14 +4,16 @@ import Foundation
 
 typealias JSON = [String: Any]
 
-class NotificationServerManager {
+class ServerManager {
     private let server = HttpServer()
-    let pushEndpoint = "/simulatorPush"
+    private let pushEndpoint = "/simulatorPush"
+    private let universalLinkEndpoint = "/simulatorUniversalLink"
 
     public func startServer() {
         do {
             try server.start(10003)
             setupPushEndpoint()
+            setupUniversalLinkEndpoint()
         } catch {
             _ = SocketError.bindFailed(Errno.description()).localizedDescription
             print("Error starting mock server" + error.localizedDescription)
@@ -19,9 +21,7 @@ class NotificationServerManager {
     }
 
     private func setupPushEndpoint() {
-
         let response: ((HttpRequest) -> HttpResponse) = { [weak self] request in
-
             guard let serializedObject = try? JSONSerialization.jsonObject(with: Data(request.body), options: []),
                 let json = serializedObject as? JSON,
                 let simId = json["simulatorId"] as? String,
@@ -47,6 +47,23 @@ class NotificationServerManager {
         }
 
         server.POST[pushEndpoint] = response
+    }
+
+    private func setupUniversalLinkEndpoint() {
+        let response: ((HttpRequest) -> HttpResponse) = { [weak self] request in
+            guard let serializedObject = try? JSONSerialization.jsonObject(with: Data(request.body), options: []),
+                let json = serializedObject as? JSON,
+                let simId = json["simulatorId"] as? String,
+                let universalLink = json["link"] as? String else {
+                    return HttpResponse.badRequest(nil)
+            }
+
+            let command = "xcrun simctl openurl \(simId) \(universalLink)"
+            self?.run(command: command)
+            return .ok(.text("Ran command: \(command)"))
+        }
+
+        server.POST[universalLinkEndpoint] = response
     }
 
     private func createTemporaryPushFile(payload: JSON) -> URL? {

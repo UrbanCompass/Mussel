@@ -4,7 +4,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    let serverManager = NotificationServerManager()
+    let serverManager = ServerManager()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         serverManager.startServer()
