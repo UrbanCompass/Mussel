@@ -8,6 +8,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "11.0"
   s.source       = { :git => "https://github.com/UrbanCompass/Mussel.git", :tag => "#{s.version}" }
   s.source_files  = "Mussel/Mussel/MusselNotificationTester.swift", "Mussel/Mussel/Mussel.h"
-  s.resources     = "scripts/run_notification_server.sh", "Mussel/Mussel/BuiltProduct/*"
+  s.resources     = "run_notification_server.sh", "Mussel/Mussel/BuiltProduct/*"
   s.swift_version = '5.0'
 end
