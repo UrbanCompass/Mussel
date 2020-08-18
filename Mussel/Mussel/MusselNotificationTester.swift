@@ -2,13 +2,13 @@
 
 import Foundation
 
-public class MusselNotificationTester {
-    private let targetAppBundleId: String
-    private let serverHost: String = "localhost"
-    private let serverPort: in_port_t = 10003
-    private let pushEndpoint = "simulatorPush"
+public class MusselNotificationTester: MusselTester {
+    var targetAppBundleId: String
+    var serverHost: String = "localhost"
+    var serverPort: in_port_t = 10003
+    var serverEndpoint: String = "simulatorPush"
 
-    public init(targetAppBundleId: String) {
+    required public init(targetAppBundleId: String) {
         self.targetAppBundleId = targetAppBundleId
     }
 
@@ -22,29 +22,14 @@ public class MusselNotificationTester {
     }
 
     public func triggerSimulatorNotification(withFullPayload payload: [String: Any]) {
-        let endpoint = "http://\(serverHost):\(serverPort)/\(pushEndpoint)"
+        let endpoint = "http://\(serverHost):\(serverPort)/\(serverEndpoint)"
 
-        guard let endpointUrl = URL(string: endpoint) else {
-            print("Invalid endpoint URL: \(endpoint)")
-            return
-        }
+        let json: [String: Any?] = [
+            "simulatorId": ProcessInfo.processInfo.environment["SIMULATOR_UDID"],
+            "appBundleId": targetAppBundleId,
+            "pushPayload": payload
+        ]
 
-        var json = [String: Any]()
-        json["simulatorId"] = ProcessInfo.processInfo.environment["SIMULATOR_UDID"]
-        json["appBundleId"] = targetAppBundleId
-        json["pushPayload"] = payload
-
-        guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else {
-            print("Invalid JSON: \(json)")
-            return
-        }
-
-        var request = URLRequest(url: endpointUrl)
-        request.httpMethod = "POST"
-        request.httpBody = data
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let task = URLSession.shared.dataTask(with: request)
-        task.resume()
+        serverRequest(endpoint: endpoint, json: json)
     }
 }
