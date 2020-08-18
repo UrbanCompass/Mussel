@@ -82,10 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				FD88AC0224EB2860007F27A4 /* BuiltProduct */,
-				FDD07FB524EC8AD5005E7149 /* MusselTester.swift */,
-				FD0A244124EC1A97009FC81A /* MusselNotificationTester.swift */,
-				FDD07FB324EC8A8D005E7149 /* MusselUniversalLinkTester.swift */,
-				FD88ABEB24EB15B5007F27A4 /* Mussel.h */,
+				FDD07FBB24EC9F2C005E7149 /* Classes */,
 				FD88ABEC24EB15B5007F27A4 /* Info.plist */,
 				FD0A244324EC1E3D009FC81A /* run_notification_server.sh */,
 			);
@@ -107,6 +104,17 @@
 				FDD07FB924EC9BED005E7149 /* MusselServer.app */,
 			);
 			path = BuiltProduct;
+			sourceTree = "<group>";
+		};
+		FDD07FBB24EC9F2C005E7149 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FDD07FB524EC8AD5005E7149 /* MusselTester.swift */,
+				FD0A244124EC1A97009FC81A /* MusselNotificationTester.swift */,
+				FDD07FB324EC8A8D005E7149 /* MusselUniversalLinkTester.swift */,
+				FD88ABEB24EB15B5007F27A4 /* Mussel.h */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,7 +392,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.3;
+				MARKETING_VERSION = 0.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.compass.Mussel;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -413,7 +421,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.3;
+				MARKETING_VERSION = 0.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.compass.Mussel;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
