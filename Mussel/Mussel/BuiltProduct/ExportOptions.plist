@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>destination</key>
+	<string>export</string>
+	<key>method</key>
+	<string>developer-id</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.compass.MusselServer.beta</key>
+		<string>MusselServer Beta</string>
+	</dict>
+	<key>signingCertificate</key>
+	<string>E3D091C1A6093EB3B94B12EB8391F7502C288FD5</string>
+	<key>signingStyle</key>
+	<string>manual</string>
+	<key>teamID</key>
+	<string>LB75XA448N</string>
+</dict>
+</plist>
