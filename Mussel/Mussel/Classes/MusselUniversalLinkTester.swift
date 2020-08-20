@@ -5,7 +5,7 @@ import Foundation
 public class MusselUniversalLinkTester: MusselTester {
     var targetAppBundleId: String
     var serverHost: String = "localhost"
-    var serverPort: in_port_t = 10003
+    var serverPort: in_port_t = 10004
     var serverEndpoint: String = "simulatorUniversalLink"
 
     required public init(targetAppBundleId: String) {
