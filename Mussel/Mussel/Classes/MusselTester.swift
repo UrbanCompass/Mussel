@@ -2,7 +2,7 @@
 
 import Foundation
 
-public protocol MusselTester: class {
+protocol MusselTester: class {
     var targetAppBundleId: String { get set }
     var serverHost: String { get set }
     var serverPort: in_port_t { get set }
