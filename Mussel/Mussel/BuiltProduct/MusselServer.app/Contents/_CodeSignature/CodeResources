@@ -10,7 +10,7 @@
 		</data>
 		<key>Resources/Assets.car</key>
 		<data>
-		WemDobhF6IkGoCB6zmZJVsEPY7o=
+		FxGVi8hcICDsJ89emVhadwdjJSk=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		kaye6BuSCHT5Kz1WEueVsSed7aQ=
+		+g8hqpYqo9lrivpTMb3/JhUtm0I=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -34,7 +34,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tGgadKWL0w2HBxHi/nM7mYD0hytM3ePK2vLsINlfYJg=
+			ZYHTb6vbXjgQeTgeaT+W8y64KBfCktXUs9adcB2bYYA=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
@@ -48,7 +48,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			coxWL3/JkazzYNMtyEAMuTZr8jUBkWXWToWOEAQ5MvM=
+			1uvAXdDlNuWnsbiRpMawpbhGZYeraxtfR1O1oE5tzo8=
+			</data>
+		</dict>
+		<key>embedded.provisionprofile</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8u8PtnkThtEZNM0az/mtSXh0k6sueeGJTxIcRIEV4eA=
 			</data>
 		</dict>
 	</dict>
