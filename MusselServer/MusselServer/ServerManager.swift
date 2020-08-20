@@ -11,7 +11,7 @@ class ServerManager {
 
     public func startServer() {
         do {
-            try server.start(10003)
+            try server.start(10004)
             setupPushEndpoint()
             setupUniversalLinkEndpoint()
         } catch {
