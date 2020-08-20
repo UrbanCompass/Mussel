@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Mussel"
-  s.version      = "0.1.5"
+  s.version      = "0.1.6"
   s.summary      = "A framework for easily testing Push Notifications and Routing in XCUITests"
   s.homepage     = "https://github.com/UrbanCompass/Mussel"
   s.license      = "MIT"
