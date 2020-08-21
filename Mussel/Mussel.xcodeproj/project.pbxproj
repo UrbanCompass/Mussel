@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		FD0A244224EC1A97009FC81A /* MusselNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A244124EC1A97009FC81A /* MusselNotificationTester.swift */; };
 		FD0A244424EC1E3D009FC81A /* run_notification_server.sh in Resources */ = {isa = PBXBuildFile; fileRef = FD0A244324EC1E3D009FC81A /* run_notification_server.sh */; };
-		FD1AD56124EF272E0047AA19 /* MusselServer.app in Resources */ = {isa = PBXBuildFile; fileRef = FD1AD56024EF272E0047AA19 /* MusselServer.app */; };
-		FD1AD56324EF27370047AA19 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD1AD56224EF27360047AA19 /* ExportOptions.plist */; };
+		FD1AD5C424EF72CB0047AA19 /* MusselServer.app in Resources */ = {isa = PBXBuildFile; fileRef = FD1AD5C324EF72CB0047AA19 /* MusselServer.app */; };
 		FD88ABF224EB15B5007F27A4 /* Mussel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD88ABE824EB15B5007F27A4 /* Mussel.framework */; };
 		FD88ABF724EB15B5007F27A4 /* MusselTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD88ABF624EB15B5007F27A4 /* MusselTests.swift */; };
 		FD88ABF924EB15B5007F27A4 /* Mussel.h in Headers */ = {isa = PBXBuildFile; fileRef = FD88ABEB24EB15B5007F27A4 /* Mussel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,8 +30,7 @@
 /* Begin PBXFileReference section */
 		FD0A244124EC1A97009FC81A /* MusselNotificationTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusselNotificationTester.swift; sourceTree = "<group>"; };
 		FD0A244324EC1E3D009FC81A /* run_notification_server.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = run_notification_server.sh; path = ../../scripts/run_notification_server.sh; sourceTree = "<group>"; };
-		FD1AD56024EF272E0047AA19 /* MusselServer.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = MusselServer.app; sourceTree = "<group>"; };
-		FD1AD56224EF27360047AA19 /* ExportOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
+		FD1AD5C324EF72CB0047AA19 /* MusselServer.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = MusselServer.app; sourceTree = "<group>"; };
 		FD88ABE824EB15B5007F27A4 /* Mussel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mussel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD88ABEB24EB15B5007F27A4 /* Mussel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mussel.h; sourceTree = "<group>"; };
 		FD88ABEC24EB15B5007F27A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -103,8 +101,7 @@
 		FD88AC0224EB2860007F27A4 /* BuiltProduct */ = {
 			isa = PBXGroup;
 			children = (
-				FD1AD56224EF27360047AA19 /* ExportOptions.plist */,
-				FD1AD56024EF272E0047AA19 /* MusselServer.app */,
+				FD1AD5C324EF72CB0047AA19 /* MusselServer.app */,
 			);
 			path = BuiltProduct;
 			sourceTree = "<group>";
@@ -214,8 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD0A244424EC1E3D009FC81A /* run_notification_server.sh in Resources */,
-				FD1AD56124EF272E0047AA19 /* MusselServer.app in Resources */,
-				FD1AD56324EF27370047AA19 /* ExportOptions.plist in Resources */,
+				FD1AD5C424EF72CB0047AA19 /* MusselServer.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +393,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.7;
+				MARKETING_VERSION = 0.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.compass.Mussel;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -428,7 +424,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.7;
+				MARKETING_VERSION = 0.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.compass.Mussel;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
