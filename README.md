@@ -4,19 +4,26 @@ A framework for easily testing Push Notifications, Universal Links and Routing i
 
 <img alt="Mussel Logo" src="mussel-icon.png" width="200" height="200" style="display: block; margin-left: auto; margin-right: auto;"/>
 
-As of Xcode 11.4, users are able to test push notifications via the simulator. Unfortunately, Apple has yet to introduce the ability to leverage this new method within the XCUITest Framework.
+As of Xcode 11.4, users are able to test Push Notifications via the simulator. Unfortunately, Apple has yet to introduce the ability to leverage this new method within the XCUITest Framework.
 
-Testing Universal Links can also be an adventure, potentially accumulating lots of extra time in UI Tests. Convential methods resorted to using iMessage or Contacts to open Universal Links which routed to a specific feature within an application.
+Testing Universal Links can also be an adventure, potentially accumulating lots of extra unwanted time in UI Tests, especially if your team wants to speed up your app's regression progress. Convential methods resorted to using iMessage or Contacts to open Universal Links which routed to a specific feature within an application.
+
+Mussel introduces a quick and simple way to test Push Notifications and Universal Links which route to any specific features within your iOS app.
+
+If you're interested, please visit our relative framework and fellow edible mollusc: <br/>
+[Snail](https://github.com/UrbanCompass/Snail "Snail") - lightweight observables framework.
+
+Let's Build some Mussel! 💪
 
 # How it works
 
 <img alt="Mussel Logo" src="mussel-server-diagram.png" width="500" height="400" style="display: block; margin-left: auto; margin-right: auto;"/>
 <br/>
 
-1. Trigger XCUITests in XCode manually or through your Continuous Integration platform of choice.
+1. An Engineer triggers XCUITests in XCode manually or through your Continuous Integration platform of choice.
 2. Mussel Server boots up along with the iOS Simulator.
-3. XCUITests trigger a Push Notification or Universal Link Test Case.
-4. Test Case sends a payload containing Push Notification or Universal Link data via POST Request.
+3. A Test Case triggers a Push Notification or Universal Link Test Case.
+4. The Test Case sends a payload containing Push Notification or Universal Link data via POST Request.
 5. Server runs respective `xcrun simctl` command for Push Notifications or Universal Links.
 6. The command presents a Push Notification or launches a Universal Link within the iOS Simulator.
 
@@ -62,7 +69,7 @@ Send a push notification with a simple message to your iOS Simulator:
 notificationTester.triggerSimulatorNotification(withMessage: "Test Push Notification")
 ```
 
-You can also send full APNS payloads for notifications which are more complex, supplying keys that are outside the `aps` payload. You can specify this payload as a Dictionary:
+You can also send full APNS payloads for notifications with more complexity, supplying keys that are outside the `aps` payload. You can specify this payload as a Dictionary:
 ``` swift
     let testPayload = [
         "aps": [
@@ -114,12 +121,12 @@ let universalLinkTester = MusselUniversalLinkTester(targetAppBundleId: "com.exam
 
 Trigger your iOS Simulator to open a Universal Link:
 ```swift
-universalLinkTester.open(withMessage: "exampleapp://example/content?id=2")
+universalLinkTester.open("exampleapp://example/content?id=2")
 ```
 
 ## Examples
 
-Here's a sample UI test that utilizes the Mussel framework for testing a Push Notification use case:
+Here's a sample UI test that utilizes the Mussel framework for testing a __Push Notification__ use case:
 
 ```swift
 import Mussel
@@ -132,12 +139,12 @@ class ExamplePushNotificationTest: XCTestCase {
 
     func testSimulatorPush() {
         waitForElementToAppear(object: app.staticTexts["Mussel Push Notification Example"])
-
-        // Trigger a push notification to the simulator
-        notificationTester.triggerSimulatorNotification(withMessage: "Test Notification Message")
     
         // Launch springboard
         springboard.activate()
+
+        // Trigger a push notification to the simulator
+        notificationTester.triggerSimulatorNotification(withMessage: "Test Notification Message")
 
         // Tap the notification when it appears
         let springBoardNotification = springboard.otherElements["NotificationShortLookView"]
@@ -155,7 +162,7 @@ class ExamplePushNotificationTest: XCTestCase {
 }
 ```
 
-Here's a sample UI test that utilizes the Mussel framework for testing a Universal Link use case:
+Here's a sample UI test that utilizes the Mussel framework for testing a __Universal Link__ use case:
 ```swift
 import Mussel
 import XCTest
@@ -167,12 +174,12 @@ class ExampleUniversalLinkTest: XCTestCase {
 
     func testSimulatorPush() {
         waitForElementToAppear(object: app.staticTexts["Mussel Universal Link Example"])
-
-        // Trigger a Universal Link to the simulator
-        universalLinkTester.open(withMessage: "mussleSampleApp://example/content?id=2")
     
         // Launch springboard
         springboard.activate()
+
+        // Trigger a Universal Link to the simulator
+        universalLinkTester.open("mussleSampleApp://example/content?id=2")
 
         waitForElementToAppear(object: app.staticTexts["Mussel Universal Link Example"])
     }
@@ -189,4 +196,4 @@ class ExampleUniversalLinkTest: XCTestCase {
 
 The original Mussel Icon can be found on clipartmax.com
 
-Big thanks to [Matt Standford](https://github.com/mattstanford/ "Matt Standford") for finding an elegant and unprecedented way to test Push Notifications on the iOS Simulator with [Pterodactyl](https://github.com/mattstanford/Pterodactyl "Pterodactyl")
+Big thanks to [Matt Stanford](https://github.com/mattstanford/ "Matt Stanford") for finding an elegant and unprecedented way to test Push Notifications on the iOS Simulator with [Pterodactyl](https://github.com/mattstanford/Pterodactyl "Pterodactyl")
