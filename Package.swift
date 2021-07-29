@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "Mussel", targets: ["Mussel"])
     ],
     targets: [
-        .target(name: "Mussel", path: "Mussel"),
-        .testTarget(name: "MusselTests", dependencies: ["Mussel"], path: "MusselTests")
+        .target(name: "Mussel", path: "Mussel/Mussel", exclude: ["BuiltProduct", "Info.plist"]),
+        .testTarget(name: "MusselTests", dependencies: ["Mussel"], path: "Mussel/MusselTests", exclude: ["Info.plist"])
     ]
 )
