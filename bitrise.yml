@@ -1,0 +1,89 @@
+format_version: "8"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: other
+trigger_map:
+- push_branch: '*'
+  workflow: test
+- tag: '*.*.*'
+  workflow: release
+workflows:
+  post-build:
+    steps:
+    - cache-push@2:
+        inputs:
+        - cache_paths: .build
+  pre-buld:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - set-git-credentials@1:
+        run_if: .IsCI
+        inputs:
+        - git_email_address: mobile-bot-compass@compass.com
+        - git_user_name: Mobile Infra Bot
+    - authenticate-host-with-netrc@0:
+        inputs:
+        - username: $MOBILE_BOT_SPEC_USER
+        - password: $MOBILE_BOT_SPEC_TOKEN
+        - host: trunk.cocoapods.org
+    - git-clone@6: {}
+  release:
+    before_run:
+    - pre-buld
+    after_run:
+    - post-build
+    envs:
+    - MUSSEL_RELEASE_DIR: $BITRISE_DEPLOY_DIR/release
+    - MUSSEL_VERSION: $BITRISE_GIT_TAG
+    steps:
+    - script@1:
+        title: Build Mussel Release
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+            mkdir -p $MUSSEL_RELEASE_DIR
+
+            # Build binary
+            swift build --product MusselServer -c release
+            cp .build/release/MusselServer $MUSSEL_RELEASE_DIR/MusselServer
+            chmod +x $MUSSEL_RELEASE_DIR/MusselServer
+
+            # Copy sources
+            cp -R Sources/Mussel $MUSSEL_RELEASE_DIR
+
+            # Copy scripts
+            cp scripts/run_server.sh $MUSSEL_RELEASE_DIR/run_server.sh
+            chmod +x $MUSSEL_RELEASE_DIR/run_server.sh
+
+            # Create zip for release
+            zip -rTyj $MUSSEL_RELEASE_DIR $BITRISE_DEPLOY_DIR
+    - github-release@0:
+        inputs:
+        - username: $MOBILE_BOT_GH_USER
+        - name: Version $BITRISE_GIT_TAG
+        - body: '## Release $BITRISE_GIT_TAG'
+        - draft: "no"
+        - files_to_upload: $BITRISE_DEPLOY_DIR/release.zip
+        - api_token: $MOBILE_BOT_GH_TOKEN
+    - script@1:
+        title: Release to Cocoapods
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+            erb version="$BITRISE_GIT_TAG" Mussel.podspec.erb > Mussel.podspec
+            pod trunk push --allow-warnings
+  test:
+    before_run:
+    - pre-buld
+    after_run:
+    - post-build
+    steps:
+    - script@1:
+        title: Run Tests
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+            swift test
