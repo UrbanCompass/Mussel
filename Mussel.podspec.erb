@@ -1,0 +1,13 @@
+Pod::Spec.new do |s|
+  s.name                        = "Mussel"
+  s.version                     = "<%= version %>"
+  s.summary                     = "A framework for easily testing Push Notifications and Routing in XCUITests"
+  s.homepage                    = "https://github.com/UrbanCompass/Mussel"
+  s.license                     = { type: 'MIT' }
+  s.author                      = "Compass"
+  s.source                      = { :http => "#{s.homepage}/releases/download/#{s.version}/release.zip" }
+  s.source_files                = "*.swift"
+  s.preserve_paths              = "*"
+  s.swift_version               = "5.4"
+  s.ios.deployment_target       = "11.0"
+end

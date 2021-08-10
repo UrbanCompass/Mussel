@@ -1,14 +1,16 @@
-
 // swift-tools-version:5.4
+
 import PackageDescription
 
 let package = Package(
     name: "Mussel",
     products: [
-        .library(name: "Mussel", targets: ["Mussel"])
+        .executable(name: "MusselServer", targets: ["MusselServer"]),
+        .library(name: "Mussel", targets: ["Mussel"]),
     ],
     targets: [
-        .target(name: "Mussel", path: "Mussel/Mussel", exclude: ["BuiltProduct", "Info.plist"]),
-        .testTarget(name: "MusselTests", dependencies: ["Mussel"], path: "Mussel/MusselTests", exclude: ["Info.plist"])
+        .executableTarget(name: "MusselServer"),
+        .target(name: "Mussel", dependencies: []),
+        .testTarget(name: "MusselTests", dependencies: ["Mussel"]),
     ]
 )
