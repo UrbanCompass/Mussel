@@ -72,6 +72,8 @@ workflows:
         - content: |-
             #!/usr/bin/env bash
             set -ex
+            # This is a temp fix because the netrc file has wrong access?
+            chmod 600 ~/.netrc
             erb version="$BITRISE_GIT_TAG" Mussel.podspec.erb > Mussel.podspec
             pod trunk push --allow-warnings
   test:
