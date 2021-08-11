@@ -1,0 +1,21 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'MusselExample' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for MusselExample
+  pod 'SnapKit'
+  pod 'SwiftyGif'
+
+  target 'MusselExampleTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'MusselExampleUITests' do
+    # Pods for testing
+    pod 'Mussel', '~> 1.0.0-beta.1'
+  end
+end
