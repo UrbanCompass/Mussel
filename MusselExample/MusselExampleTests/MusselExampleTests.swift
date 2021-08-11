@@ -1,10 +1,4 @@
-//
-//  MusselExampleTests.swift
-//  MusselExampleTests
-//
-//  Created by Renato Gamboa on 12/3/20.
-//  Copyright © 2020 Compass. All rights reserved.
-//
+//  Copyright © 2021 Compass. All rights reserved.
 
 import XCTest
 @testable import MusselExample
@@ -30,5 +24,4 @@ class MusselExampleTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

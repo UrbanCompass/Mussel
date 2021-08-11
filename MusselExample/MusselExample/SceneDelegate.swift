@@ -1,10 +1,4 @@
-//
-//  SceneDelegate.swift
-//  MusselExample
-//
-//  Created by Renato Gamboa on 12/3/20.
-//  Copyright © 2020 Compass. All rights reserved.
-//
+//  Copyright © 2021 Compass. All rights reserved.
 
 import UIKit
 
