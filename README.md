@@ -160,6 +160,8 @@ You can do this by:
 
 # Examples
 
+Check out the example project in [MusselExample](/MusselExample)
+
 Here's a sample UI test that utilizes the Mussel framework for testing a __Push Notification__ use case:
 
 ```swift
