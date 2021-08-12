@@ -1,0 +1,6 @@
+framework module Pods_MusselExample {
+  umbrella header "Pods-MusselExample-umbrella.h"
+
+  export *
+  module * { export * }
+}

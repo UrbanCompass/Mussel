@@ -1,0 +1,6 @@
+framework module Mussel {
+  umbrella header "Mussel-umbrella.h"
+
+  export *
+  module * { export * }
+}
