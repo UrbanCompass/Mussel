@@ -28,7 +28,23 @@ extension MusselTester {
         request.httpBody = data
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let task = URLSession.shared.dataTask(with: request)
+        let dispatchGroup = DispatchGroup()
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                debugPrint("Mussel received error: \(error.localizedDescription)")
+            } else if let response = response as? HTTPURLResponse {
+                debugPrint("Mussel received response status code \(response.statusCode)")
+            } else {
+                debugPrint("Mussel request finished, but with an unexpected result. Maybe MusselServer isn't running?")
+            }
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.enter()
         task.resume()
+        
+        // Wait until the task completes
+        dispatchGroup.wait()
     }
 }
