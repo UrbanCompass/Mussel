@@ -11,7 +11,11 @@ open class MusselTester {
 
     public init(targetAppBundleId: String) {
         self.targetAppBundleId = targetAppBundleId
+
         self.simulatorId = ProcessInfo.processInfo.environment["SIMULATOR_UDID"]
+
+        // Infer whether the "testing" set is in use.
+        // Instead of this, we could provide the path to the set, which is HOME truncated at the simulator ID.
         self.simulatorDeviceSet = (ProcessInfo.processInfo.environment["HOME"]?.contains("XCTestDevices") ?? false) ? "testing" : nil
     }
 
