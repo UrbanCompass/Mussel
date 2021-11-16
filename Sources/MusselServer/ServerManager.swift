@@ -24,6 +24,7 @@ class ServerManager {
 
     private func setupPushEndpoint() {
         let response: ((HttpRequest) -> HttpResponse) = { [weak self] request in
+            guard let self = self else { return .internalServerError }
             guard let serializedObject = try? JSONSerialization.jsonObject(with: Data(request.body), options: []),
                   let json = serializedObject as? JSON,
                   let simId = json["simulatorId"] as? String,
@@ -33,9 +34,16 @@ class ServerManager {
                 return HttpResponse.badRequest(nil)
             }
 
-            if let pushFileUrl = self?.createTemporaryPushFile(payload: payload) {
-                let command = "xcrun simctl push \(simId) \(appBundleId) \(pushFileUrl.path)"
-                self?.run(command: command)
+            let simctlOptions: String
+            if let simulatorDeviceSet = json["simulatorDeviceSet"] as? String {
+                simctlOptions = "--set \(simulatorDeviceSet) "
+            } else {
+                simctlOptions = ""
+            }
+
+            if let pushFileUrl = self.createTemporaryPushFile(payload: payload) {
+                let command = "xcrun simctl \(simctlOptions)push \(simId) \(appBundleId) \(pushFileUrl.path)"
+                self.run(command: command)
 
                 do {
                     try FileManager.default.removeItem(at: pushFileUrl)
@@ -54,6 +62,7 @@ class ServerManager {
 
     private func setupUniversalLinkEndpoint() {
         let response: ((HttpRequest) -> HttpResponse) = { [weak self] request in
+            guard let self = self else { return .internalServerError }
             guard let serializedObject = try? JSONSerialization.jsonObject(with: Data(request.body), options: []),
                   let json = serializedObject as? JSON,
                   let simId = json["simulatorId"] as? String,
@@ -62,8 +71,15 @@ class ServerManager {
                 return HttpResponse.badRequest(nil)
             }
 
-            let command = "xcrun simctl openurl \(simId) \(universalLink)"
-            self?.run(command: command)
+            let simctlOptions: String
+            if let simulatorDeviceSet = json["simulatorDeviceSet"] as? String {
+                simctlOptions = "--set \(simulatorDeviceSet) "
+            } else {
+                simctlOptions = ""
+            }
+
+            let command = "xcrun simctl \(simctlOptions)openurl \(simId) \(universalLink)"
+            self.run(command: command)
             return .ok(.text("Ran command: \(command)"))
         }
 
