@@ -2,24 +2,31 @@
 
 import Foundation
 
-protocol MusselTester: AnyObject {
-    var targetAppBundleId: String { get set }
-    var serverHost: String { get set }
-    var serverPort: in_port_t { get set }
-    var serverEndpoint: String { get set }
+open class MusselTester {
+    var targetAppBundleId: String
+    private var simulatorId: String?
+    var serverHost: String = "localhost"
+    var serverPort: in_port_t = 10004
 
-    init(targetAppBundleId: String)
-}
+    public init(targetAppBundleId: String) {
+        self.targetAppBundleId = targetAppBundleId
+        self.simulatorId = ProcessInfo.processInfo.environment["SIMULATOR_UDID"]
+    }
 
-extension MusselTester {
-    func serverRequest(endpoint: String, json: [String: Any?]) {
+    func serverRequestTask(_ task: String, options taskOptions: [String: Any?]) {
+        let endpoint = "http://\(serverHost):\(serverPort)/\(task)"
+
         guard let endpointUrl = URL(string: endpoint) else {
             print("Invalid endpoint URL: \(endpoint)")
             return
         }
 
-        guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else {
-            print("Invalid JSON: \(json)")
+        let requestOptions = taskOptions.merging([
+            "simulatorId": self.simulatorId,
+        ], uniquingKeysWith: { $1 })
+
+        guard let data = try? JSONSerialization.data(withJSONObject: requestOptions, options: []) else {
+            print("Invalid JSON: \(requestOptions)")
             return
         }
 
