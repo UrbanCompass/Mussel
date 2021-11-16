@@ -2,24 +2,38 @@
 
 import Foundation
 
-protocol MusselTester: AnyObject {
-    var targetAppBundleId: String { get set }
-    var serverHost: String { get set }
-    var serverPort: in_port_t { get set }
-    var serverEndpoint: String { get set }
+open class MusselTester {
+    var targetAppBundleId: String
+    private var simulatorId: String?
+    private var simulatorDeviceSet: String?
+    var serverHost: String = "localhost"
+    var serverPort: in_port_t = 10004
 
-    init(targetAppBundleId: String)
-}
+    public init(targetAppBundleId: String) {
+        self.targetAppBundleId = targetAppBundleId
 
-extension MusselTester {
-    func serverRequest(endpoint: String, json: [String: Any?]) {
+        self.simulatorId = ProcessInfo.processInfo.environment["SIMULATOR_UDID"]
+
+        // Infer whether the "testing" set is in use.
+        // Instead of this, we could provide the path to the set, which is HOME truncated at the simulator ID.
+        self.simulatorDeviceSet = (ProcessInfo.processInfo.environment["HOME"]?.contains("XCTestDevices") ?? false) ? "testing" : nil
+    }
+
+    func serverRequestTask(_ task: String, options taskOptions: [String: Any?]) {
+        let endpoint = "http://\(serverHost):\(serverPort)/\(task)"
+
         guard let endpointUrl = URL(string: endpoint) else {
             print("Invalid endpoint URL: \(endpoint)")
             return
         }
 
-        guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else {
-            print("Invalid JSON: \(json)")
+        let requestOptions = taskOptions.merging([
+            "simulatorId": self.simulatorId,
+            "simulatorDeviceSet": self.simulatorDeviceSet,
+        ], uniquingKeysWith: { $1 })
+
+        guard let data = try? JSONSerialization.data(withJSONObject: requestOptions, options: []) else {
+            print("Invalid JSON: \(requestOptions)")
             return
         }
 
