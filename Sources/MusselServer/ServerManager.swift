@@ -15,6 +15,7 @@ class ServerManager {
             try server.start(10004)
             setupPushEndpoint()
             setupUniversalLinkEndpoint()
+            setupUninstallAppEndpoint()
         } catch {
             _ = SocketError.bindFailed(Errno.description()).localizedDescription
             print("Error starting Mussel server")
