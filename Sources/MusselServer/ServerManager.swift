@@ -8,6 +8,7 @@ class ServerManager {
     private let server = HttpServer()
     private let pushEndpoint = "/simulatorPush"
     private let universalLinkEndpoint = "/simulatorUniversalLink"
+    private let uninstallAppEndpoint = "/simulatorUninstallApp"
 
     public func startServer() {
         do {
@@ -62,12 +63,30 @@ class ServerManager {
                 return HttpResponse.badRequest(nil)
             }
 
-            let command = "xcrun simctl openurl \(simId) \(universalLink)"
+            let command = "xcrun simctl openurl \(simId) \"\(universalLink)\""
             self?.run(command: command)
             return .ok(.text("Ran command: \(command)"))
         }
 
         server.POST[universalLinkEndpoint] = response
+    }
+    
+    private func setupUninstallAppEndpoint() {
+        let response: ((HttpRequest) -> HttpResponse) = { [weak self] request in
+            guard let serializedObject = try? JSONSerialization.jsonObject(with: Data(request.body), options: []),
+                  let json = serializedObject as? JSON,
+                  let simId = json["simulatorId"] as? String,
+                  let appBundleId = json["appBundleId"] as? String
+            else {
+                return HttpResponse.badRequest(nil)
+            }
+
+            let command = "xcrun simctl uninstall \(simId) \(appBundleId)"
+            self?.run(command: command)
+            return .ok(.text("Ran command: \(command)"))
+        }
+
+        server.POST[uninstallAppEndpoint] = response
     }
 
     private func createTemporaryPushFile(payload: JSON) -> URL? {
