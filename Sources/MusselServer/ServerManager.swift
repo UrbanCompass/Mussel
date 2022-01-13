@@ -82,7 +82,7 @@ class ServerManager {
                 return HttpResponse.badRequest(nil)
             }
 
-            let command = "xcrun simctl --set testing uninstall \(simId) \(appBundleId)"
+            let command = "xcrun simctl uninstall \(simId) \(appBundleId)"
             self?.run(command: command)
             return .ok(.text("Ran command: \(command)"))
         }
