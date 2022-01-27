@@ -83,8 +83,8 @@ class ServerManager {
             }
 
             let command = "xcrun simctl uninstall \(simId) \(appBundleId)"
-            self?.run(command: command)
-            return .ok(.text("Ran command: \(command)"))
+            let result = self?.run(command: command)
+            return .ok(.text("Ran command: \(command) \n Result:\n \(result ?? "Empty result")"))
         }
 
         server.POST[uninstallAppEndpoint] = response
@@ -105,7 +105,7 @@ class ServerManager {
         return temporaryFileURL
     }
 
-    func run(command: String) {
+    @discardableResult func run(command: String) -> String {
         let pipe = Pipe()
         let task = Process()
         task.launchPath = "/bin/sh"
@@ -115,8 +115,11 @@ class ServerManager {
         task.launch()
         if let result = NSString(data: file.readDataToEndOfFile(), encoding: String.Encoding.utf8.rawValue) {
             print(result as String)
+            return result as String
         } else {
-            print("--- Error running command - Unable to initialize string from file data ---")
+            let errorString = "--- Error running command - Unable to initialize string from file data ---"
+            print(errorString)
+            return errorString
         }
     }
 }
